@@ -257,6 +257,47 @@
         </div>
       </div>
     </div>
+
+    <!-- public catalog of active fundraisers (guest view) -->
+    <div style="margin-top:54px">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:10px">
+        <h2 style="color:var(--navy);font-size:26px">Active fundraisers</h2>
+        <span class="hint">Every page is verified by the foundation before it goes live ✓</span>
+      </div>
+      <div class="flow-cards" style="margin-top:20px">
+        <div class="card fc" onclick="setLaunch(false);go('s-public')">
+          <div class="cover" style="height:130px;border-radius:12px"><span class="ph">🏃‍♀️</span></div>
+          <h3 style="margin-top:14px">Anna runs the Limassol Marathon for Margarita</h3>
+          <p>by Anna K.</p>
+          <div class="bar" style="margin-top:12px"><i style="width:74%"></i></div>
+          <div style="display:flex;justify-content:space-between;margin-top:7px;font-size:12.5px">
+            <b style="color:var(--teal)">€1,485</b><span class="hint">of €2,000 · 27 donors</span>
+          </div>
+        </div>
+        <div class="card fc" onclick="setLaunch(false);go('s-public')">
+          <div class="cover" style="height:130px;border-radius:12px;background:linear-gradient(35deg,#7c4dbe44,#a62c8f33)"><span class="ph">🎂</span></div>
+          <h3 style="margin-top:14px">My birthday wish: help instead of gifts</h3>
+          <p>by Olga M.</p>
+          <div class="bar" style="margin-top:12px"><i style="width:41%"></i></div>
+          <div style="display:flex;justify-content:space-between;margin-top:7px;font-size:12.5px">
+            <b style="color:var(--teal)">€205</b><span class="hint">of €500 · 9 donors</span>
+          </div>
+        </div>
+        <div class="card fc" onclick="setLaunch(true);go('s-public')">
+          <div class="cover" style="height:130px;border-radius:12px;background:linear-gradient(35deg,#2a9d8f33,#7c4dbe33)"><span class="ph">🚴</span></div>
+          <h3 style="margin-top:14px">Nikolai cycles 300 km for TFF <span class="pill active" style="font-size:10px;vertical-align:middle">✨ new</span></h3>
+          <p>by Nikolai P.</p>
+          <div class="bar" style="margin-top:12px"><i style="width:0%"></i></div>
+          <div style="display:flex;justify-content:space-between;margin-top:7px;font-size:12.5px">
+            <b style="color:var(--teal)">€0</b><span class="hint">of €1,500 · be the first!</span>
+          </div>
+        </div>
+      </div>
+      <div class="card fc" onclick="go('s-login')" style="margin-top:18px;border:2px dashed var(--coral);background:var(--soft);text-align:center;box-shadow:none">
+        <b style="color:var(--coral);font-size:16px">＋ Start your own fundraiser</b>
+        <p style="margin-top:4px">A birthday, a race, a challenge — anything can become help for a child. Takes about a minute.</p>
+      </div>
+    </div>
   </div>
 </section>
 
