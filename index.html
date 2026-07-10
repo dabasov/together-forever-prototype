@@ -8,10 +8,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --coral:#e8555a; --coral-dark:#d33c42; --navy:#1d3557; --teal:#2a9d8f;
-    --bg:#faf8f5; --card:#ffffff; --line:#ece7df; --muted:#8a8478;
-    --ink:#2b2b2b; --gold:#f4a261; --soft:#fdf1ec;
-    --shadow:0 10px 30px rgba(29,53,87,.08);
+    --coral:#a62c8f; --coral-dark:#8e2280; --navy:#432366; --teal:#2a9d8f;
+    --bg:#faf7fb; --card:#ffffff; --line:#ece3ef; --muted:#8d8496;
+    --ink:#2b2b2b; --gold:#7c4dbe; --soft:#f8eef7;
+    --shadow:0 10px 30px rgba(67,35,102,.08);
     --radius:16px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -119,23 +119,24 @@
   .linkbox{display:flex;gap:8px;margin-top:12px}
   .linkbox input{flex:1;padding:11px 14px;border:2px dashed var(--line);border-radius:10px;font-size:13.5px;color:var(--muted);background:#fff}
 
-  /* ---------- admin (WP style) ---------- */
+  /* ---------- admin panel (standalone) ---------- */
   .wp{display:flex;min-height:calc(100vh - 110px);font-size:13px}
-  .wp-side{width:170px;background:#1d2327;color:#c3c4c7;padding:16px 0;flex:none}
-  .wp-side .it{padding:9px 16px;cursor:pointer}
-  .wp-side .it.on{background:#2271b1;color:#fff;font-weight:700}
-  .wp-main{flex:1;background:#f0f0f1;padding:24px}
-  .wp-main h2{font-size:22px;font-weight:400;color:#1d2327;margin-bottom:16px;font-family:inherit}
-  table.wp-t{width:100%;border-collapse:collapse;background:#fff;border:1px solid #c3c4c7}
-  .wp-t th{background:#fff;text-align:left;padding:10px 12px;border-bottom:1px solid #c3c4c7;font-size:13px}
-  .wp-t td{padding:12px;border-bottom:1px solid #f0f0f1;vertical-align:middle}
-  .wp-t tr:hover td{background:#f6f7f7}
-  .wp-a{color:#2271b1;cursor:pointer;margin-right:10px;text-decoration:underline;font-size:12.5px}
+  .wp-side{width:190px;background:#3a1f55;color:#cfc3dd;padding:16px 0;flex:none}
+  .wp-side .brand{padding:4px 16px 16px;font-weight:900;color:#fff;font-size:14px}
+  .wp-side .it{padding:9px 16px;cursor:pointer;border-radius:0 99px 99px 0;margin-right:10px}
+  .wp-side .it.on{background:var(--coral);color:#fff;font-weight:700}
+  .wp-main{flex:1;background:#f4f0f7;padding:24px}
+  .wp-main h2{font-size:22px;font-weight:700;color:#3a1f55;margin-bottom:16px;font-family:inherit}
+  table.wp-t{width:100%;border-collapse:collapse;background:#fff;border:1px solid #ddd2e6;border-radius:10px;overflow:hidden}
+  .wp-t th{background:#fff;text-align:left;padding:10px 12px;border-bottom:1px solid #ddd2e6;font-size:13px}
+  .wp-t td{padding:12px;border-bottom:1px solid #f4f0f7;vertical-align:middle}
+  .wp-t tr:hover td{background:#faf7fb}
+  .wp-a{color:#8e2280;cursor:pointer;margin-right:10px;text-decoration:underline;font-size:12.5px}
   .wp-a.red{color:#b32d2e}
-  .wp-tabs{margin-bottom:12px;color:#646970}
-  .wp-tabs b{color:#000}
-  .wp-bar{height:8px;width:110px;background:#e5e5e5;border-radius:99px;display:inline-block;vertical-align:middle;overflow:hidden}
-  .wp-bar i{display:block;height:100%;background:#2271b1}
+  .wp-tabs{margin-bottom:12px;color:#7c6f8c}
+  .wp-tabs b{color:#3a1f55}
+  .wp-bar{height:8px;width:110px;background:#e9e2f0;border-radius:99px;display:inline-block;vertical-align:middle;overflow:hidden}
+  .wp-bar i{display:block;height:100%;background:var(--coral)}
 
   /* ---------- prototype navigator ---------- */
   .proto-nav{position:fixed;bottom:0;left:0;right:0;background:var(--navy);color:#fff;padding:10px 18px;z-index:50;display:flex;gap:6px;align-items:center;overflow-x:auto}
@@ -189,21 +190,36 @@
       </div>
       <div class="card fc" onclick="go('s-admin')">
         <div class="ic">🛠️</div>
-        <h3>Admin (WordPress)</h3>
-        <p>All campaigns in one list: approve, disable, edit, track totals. Lives inside the existing WP admin.</p>
+        <h3>Admin panel</h3>
+        <p>All campaigns in one list: approve, disable, edit, track totals. Standalone admin app for the foundation team.</p>
         <div class="steps">1 screen →</div>
       </div>
     </div>
-    <p style="text-align:center;margin-top:34px;font-size:13px;color:var(--muted)">Use the navigator at the bottom to jump to any screen, or click through the flows.</p>
+    <div class="card pad" style="margin-top:26px">
+      <div style="display:flex;gap:24px;flex-wrap:wrap">
+        <div style="flex:1;min-width:260px">
+          <h3 style="color:var(--navy);font-size:15px">⚙️ Tech stack</h3>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-top:6px">Independent app, not a WordPress module: <b style="color:var(--navy)">React (Native) frontend · Go backend · Firebase Authentication</b> (email-link / OTP codes) · existing Stripe. Embedded into together-forever.fund via link or subdomain.</p>
+        </div>
+        <div style="flex:1.4;min-width:300px">
+          <h3 style="color:var(--navy);font-size:15px">📍 Where it plugs into the site — to decide</h3>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-top:6px">
+            <b style="color:var(--navy)">A.</b> New top-nav tab «События» / “Fundraisers” (shown in this prototype) &nbsp;·&nbsp;
+            <b style="color:var(--navy)">B.</b> Under the existing «Сертификат» tab as a second gift-style product &nbsp;·&nbsp;
+            <b style="color:var(--navy)">C.</b> Rename «Новости» into a combined news + fundraisers section.</p>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:26px;font-size:13px;color:var(--muted)">Use the navigator at the bottom to jump to any screen, or click through the flows.</p>
   </div>
 </section>
 
 <!-- ═══════════════ 1 · LANDING / ENTRY POINT ═══════════════ -->
 <section class="screen" id="s-landing">
   <header class="site-header">
-    <a class="logo"><span class="heart">❤</span> Together Forever</a>
-    <nav class="site-nav"><span>About</span><span>Children</span><span>Reports</span><span class="on">Fundraise</span><span>Donate</span></nav>
-    <div class="hdr-right"><span class="lang">EN · RU</span><button class="btn btn-primary btn-sm" onclick="go('s-login')">Start a fundraiser</button></div>
+    <a class="logo"><span class="heart">🐘</span> Together Forever</a>
+    <nav class="site-nav"><span>About us</span><span>Children</span><span>News</span><span>Certificates</span><span class="on">Fundraisers · new</span></nav>
+    <div class="hdr-right"><span class="lang">RU · EN</span><button class="btn btn-ghost btn-sm">Request help</button><button class="btn btn-primary btn-sm" onclick="go('s-login')">Help children</button></div>
   </header>
   <div class="wrap">
     <div class="two">
@@ -239,7 +255,7 @@
 <!-- ═══════════════ 2 · EMAIL LOGIN ═══════════════ -->
 <section class="screen" id="s-login">
   <header class="site-header">
-    <a class="logo" onclick="go('s-landing')" style="cursor:pointer"><span class="heart">❤</span> Together Forever</a>
+    <a class="logo" onclick="go('s-landing')" style="cursor:pointer"><span class="heart">🐘</span> Together Forever</a>
     <div class="hdr-right"><span class="lang">EN · RU</span></div>
   </header>
   <div class="wrap narrow" style="padding-top:56px">
@@ -258,7 +274,7 @@
 <!-- ═══════════════ 3 · MAGIC CODE ═══════════════ -->
 <section class="screen" id="s-code">
   <header class="site-header">
-    <a class="logo" onclick="go('s-landing')" style="cursor:pointer"><span class="heart">❤</span> Together Forever</a>
+    <a class="logo" onclick="go('s-landing')" style="cursor:pointer"><span class="heart">🐘</span> Together Forever</a>
     <div class="hdr-right"><span class="lang">EN · RU</span></div>
   </header>
   <div class="wrap narrow" style="padding-top:56px">
@@ -278,7 +294,7 @@
 <!-- ═══════════════ 4 · CREATE WIZARD ═══════════════ -->
 <section class="screen" id="s-wizard">
   <header class="site-header">
-    <a class="logo" onclick="go('s-landing')" style="cursor:pointer"><span class="heart">❤</span> Together Forever</a>
+    <a class="logo" onclick="go('s-landing')" style="cursor:pointer"><span class="heart">🐘</span> Together Forever</a>
     <div class="hdr-right"><span class="hint">anna@example.com</span></div>
   </header>
   <div class="wrap mid" style="padding-top:40px">
@@ -342,7 +358,7 @@
 <!-- ═══════════════ 5 · PENDING MODERATION ═══════════════ -->
 <section class="screen" id="s-pending">
   <header class="site-header">
-    <a class="logo" onclick="go('s-landing')" style="cursor:pointer"><span class="heart">❤</span> Together Forever</a>
+    <a class="logo" onclick="go('s-landing')" style="cursor:pointer"><span class="heart">🐘</span> Together Forever</a>
     <div class="hdr-right"><span class="hint">anna@example.com</span></div>
   </header>
   <div class="wrap mid" style="padding-top:44px">
@@ -367,7 +383,7 @@
 <!-- ═══════════════ 6 · FUNDRAISER DASHBOARD ═══════════════ -->
 <section class="screen" id="s-dashboard">
   <header class="site-header">
-    <a class="logo" onclick="go('s-landing')" style="cursor:pointer"><span class="heart">❤</span> Together Forever</a>
+    <a class="logo" onclick="go('s-landing')" style="cursor:pointer"><span class="heart">🐘</span> Together Forever</a>
     <nav class="site-nav"><span class="on">My fundraiser</span></nav>
     <div class="hdr-right"><span class="hint">anna@example.com</span><button class="btn btn-ghost btn-sm">Log out</button></div>
   </header>
@@ -470,9 +486,9 @@
 <!-- ═══════════════ 7 · PUBLIC CAMPAIGN PAGE (donor view) ═══════════════ -->
 <section class="screen" id="s-public">
   <header class="site-header">
-    <a class="logo" onclick="go('s-landing')" style="cursor:pointer"><span class="heart">❤</span> Together Forever</a>
-    <nav class="site-nav"><span>About</span><span>Children</span><span>Fundraise</span></nav>
-    <div class="hdr-right"><span class="lang">EN · RU</span><button class="btn btn-primary btn-sm" onclick="go('s-donate')">Donate</button></div>
+    <a class="logo" onclick="go('s-landing')" style="cursor:pointer"><span class="heart">🐘</span> Together Forever</a>
+    <nav class="site-nav"><span>About us</span><span>Children</span><span>Certificates</span><span class="on">Fundraisers</span></nav>
+    <div class="hdr-right"><span class="lang">RU · EN</span><button class="btn btn-primary btn-sm" onclick="go('s-donate')">Donate</button></div>
   </header>
   <div class="wrap">
     <div class="two">
@@ -512,7 +528,7 @@
         <div class="card pad" style="margin-top:18px">
           <h3 style="font-size:15px;color:var(--navy)">Benefiting</h3>
           <div style="display:flex;gap:10px;align-items:center;margin-top:10px">
-            <span class="heart" style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--coral),var(--gold));display:grid;place-items:center;color:#fff">❤</span>
+            <span class="heart" style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--coral),var(--gold));display:grid;place-items:center;color:#fff">🐘</span>
             <div><b style="font-size:14px;color:var(--navy)">Together Forever Foundation</b>
             <div class="hint">Helping children with rare neurological diseases</div></div>
           </div>
@@ -525,7 +541,7 @@
 <!-- ═══════════════ 8 · DONATE ═══════════════ -->
 <section class="screen" id="s-donate">
   <header class="site-header">
-    <a class="logo" onclick="go('s-public')" style="cursor:pointer"><span class="heart">❤</span> Together Forever</a>
+    <a class="logo" onclick="go('s-public')" style="cursor:pointer"><span class="heart">🐘</span> Together Forever</a>
     <div class="hdr-right"><span class="hint">Supporting: Anna runs for Margarita</span></div>
   </header>
   <div class="wrap mid" style="padding-top:36px">
@@ -584,7 +600,7 @@
 <!-- ═══════════════ 9 · STRIPE PAYMENT (mock) ═══════════════ -->
 <section class="screen" id="s-pay">
   <header class="site-header">
-    <a class="logo" onclick="go('s-public')" style="cursor:pointer"><span class="heart">❤</span> Together Forever</a>
+    <a class="logo" onclick="go('s-public')" style="cursor:pointer"><span class="heart">🐘</span> Together Forever</a>
     <div class="hdr-right"><span class="hint">🔒 Secure checkout</span></div>
   </header>
   <div class="wrap narrow" style="padding-top:48px">
@@ -610,7 +626,7 @@
 <!-- ═══════════════ 10 · THANK YOU ═══════════════ -->
 <section class="screen" id="s-thanks">
   <header class="site-header">
-    <a class="logo" onclick="go('s-landing')" style="cursor:pointer"><span class="heart">❤</span> Together Forever</a>
+    <a class="logo" onclick="go('s-landing')" style="cursor:pointer"><span class="heart">🐘</span> Together Forever</a>
   </header>
   <div class="wrap mid" style="padding-top:44px;text-align:center">
     <div style="font-size:50px">💖</div>
@@ -642,20 +658,20 @@
   </div>
 </section>
 
-<!-- ═══════════════ 11 · WP ADMIN ═══════════════ -->
+<!-- ═══════════════ 11 · ADMIN PANEL (standalone) ═══════════════ -->
 <section class="screen" id="s-admin">
   <div class="wp">
     <div class="wp-side">
+      <div class="brand">🐘 TFF Admin</div>
       <div class="it">🏠 Dashboard</div>
-      <div class="it">📝 Posts</div>
-      <div class="it">🖼️ Media</div>
       <div class="it on">❤️ Fundraisers</div>
       <div class="it">💳 Donations</div>
+      <div class="it">🎁 Certificates</div>
       <div class="it">👥 Users</div>
       <div class="it">⚙️ Settings</div>
     </div>
     <div class="wp-main">
-      <h2>Fundraisers <span style="font-size:12px;background:#2271b1;color:#fff;border-radius:99px;padding:2px 8px;vertical-align:middle">custom module</span></h2>
+      <h2>Fundraisers <span style="font-size:12px;background:var(--coral);color:#fff;border-radius:99px;padding:2px 8px;vertical-align:middle">standalone app</span></h2>
       <div class="wp-tabs"><b>All (14)</b> | <span style="color:#2271b1">Pending (2)</span> | Active (10) | Disabled (2)</div>
       <table class="wp-t">
         <tr><th>Campaign</th><th>Fundraiser</th><th>Status</th><th>Progress</th><th>Raised</th><th>Donors</th><th>Actions</th></tr>
@@ -708,7 +724,7 @@
           <td><span class="wp-a">Edit</span><span class="wp-a">Re-enable</span></td>
         </tr>
       </table>
-      <p style="margin-top:14px;color:#646970;font-size:12px">Admins can approve/disable pages, edit texts &amp; images, adjust goals, and open any public page. Donations are attributed to each fundraiser via the extended Stripe metadata.</p>
+      <p style="margin-top:14px;color:#7c6f8c;font-size:12px">Admins can approve/disable pages, edit texts &amp; images, adjust goals, and open any public page. Donations are attributed to each fundraiser via Stripe metadata. Standalone admin app · Go backend · Firebase Auth (admin role).</p>
     </div>
   </div>
 </section>
@@ -729,7 +745,7 @@
   <button data-s="s-pay">9 Stripe</button>
   <button data-s="s-thanks">10 Thanks</button>
   <span class="grp">Admin</span>
-  <button data-s="s-admin">11 WP Admin</button>
+  <button data-s="s-admin">11 Admin</button>
 </nav>
 
 <script>
