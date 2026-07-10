@@ -155,6 +155,13 @@
   @media(max-width:840px){.two{grid-template-columns:1fr}.postcard{flex-direction:column}.pc-left{border-right:none;border-bottom:2px dashed #d8cfc2}}
   .cover{height:230px;border-radius:var(--radius) var(--radius) 0 0;background:linear-gradient(35deg,#f4a26155,#e8555a44),url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><text x="10" y="50" font-size="34" opacity=".18">🏃</text></svg>');background-size:cover,80px;display:grid;place-items:center}
   .cover .ph{background:rgba(255,255,255,.85);padding:10px 22px;border-radius:99px;font-size:13px;font-weight:800;color:var(--navy)}
+  .stoggle{display:flex;align-items:center;gap:8px;margin-bottom:18px;font-size:12.5px;color:var(--muted);font-weight:700}
+  .stoggle button{border:2px solid var(--line);background:#fff;border-radius:99px;padding:6px 14px;font-family:inherit;font-size:12.5px;font-weight:800;color:var(--navy);cursor:pointer}
+  .stoggle button.on{background:var(--coral);border-color:var(--coral);color:#fff}
+  .empty{text-align:center;padding:34px 20px;border:2px dashed var(--line);border-radius:14px;background:var(--bg)}
+  .empty .em{font-size:38px}
+  .empty b{display:block;color:var(--navy);font-size:16px;margin:10px 0 6px}
+  .empty p{font-size:13.5px;color:var(--muted);line-height:1.6;max-width:380px;margin:0 auto}
   .flow-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}
   @media(max-width:840px){.flow-cards{grid-template-columns:1fr}}
   .fc{padding:24px;cursor:pointer;transition:.15s}
@@ -229,7 +236,7 @@
         <p class="sub">Create your own fundraising page for Together Forever. Set a goal, share your link, and watch every donation arrive — fully transparent, for you and for everyone who gives.</p>
         <div style="display:flex;gap:14px;margin-top:28px;flex-wrap:wrap">
           <button class="btn btn-primary" onclick="go('s-login')">Start a fundraiser — it takes 1 minute</button>
-          <button class="btn btn-ghost" onclick="go('s-public')">See an example page</button>
+          <button class="btn btn-ghost" onclick="setLaunch(false);go('s-public')">See an example page</button>
         </div>
         <div style="display:flex;gap:26px;margin-top:34px">
           <div><b style="font-size:24px;color:var(--navy)">1 min</b><div class="hint">to create a page</div></div>
@@ -373,8 +380,8 @@
       </div>
       <p class="hint">Your personal link — it will start working as soon as the page is approved.</p>
       <div style="display:flex;gap:12px;justify-content:center;margin-top:26px">
-        <button class="btn btn-ghost" onclick="go('s-public')">Preview my page</button>
-        <button class="btn btn-primary" onclick="go('s-dashboard')">Go to my dashboard →</button>
+        <button class="btn btn-ghost" onclick="setLaunch(true);go('s-public')">Preview my page</button>
+        <button class="btn btn-primary" onclick="setLaunch(true);go('s-dashboard')">Go to my dashboard →</button>
       </div>
     </div>
   </div>
@@ -388,10 +395,20 @@
     <div class="hdr-right"><span class="hint">anna@example.com</span><button class="btn btn-ghost btn-sm">Log out</button></div>
   </header>
   <div class="wrap">
-    <div class="banner green">
+    <div class="stoggle"><span>Prototype view:</span>
+      <button class="stg-day1" onclick="setLaunch(true)">🌱 Day one (just launched)</button>
+      <button class="stg-live on" onclick="setLaunch(false)">📈 Week 3 (27 donations)</button>
+    </div>
+    <div class="banner green" data-st="live">
       <div class="bi">✅</div>
       <div><b>Your page is live!</b>
         <p>Approved on 12 Sep. Share your link — every donation shows up here in real time.</p>
+      </div>
+    </div>
+    <div class="banner green" data-st="day1" hidden>
+      <div class="bi">🎉</div>
+      <div><b>Your page is live — time to tell the world!</b>
+        <p>Pages shared within the first day raise about 3× more. Start with the people closest to you: personal messages work far better than public posts.</p>
       </div>
     </div>
     <div class="two">
@@ -404,23 +421,31 @@
             </div>
             <button class="btn btn-ghost btn-sm">✏️ Edit page</button>
           </div>
-          <div style="margin-top:22px" class="bar"><i style="width:74%"></i></div>
+          <div style="margin-top:22px" class="bar"><i id="db-bar" style="width:74%"></i></div>
           <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:14px">
-            <b style="color:var(--teal);font-size:17px">€1,485 raised</b>
-            <span class="hint" style="font-size:14px">74% of €2,000 goal</span>
+            <b style="color:var(--teal);font-size:17px" id="db-raised">€1,485 raised</b>
+            <span class="hint" style="font-size:14px" id="db-pct">74% of €2,000 goal</span>
           </div>
           <div class="stats">
-            <div class="stat"><b>€1,485</b><span>Raised</span></div>
-            <div class="stat"><b>27</b><span>Donors</span></div>
-            <div class="stat"><b>€55</b><span>Avg. gift</span></div>
-            <div class="stat"><b>24</b><span>Days left</span></div>
+            <div class="stat"><b id="db-s1">€1,485</b><span>Raised</span></div>
+            <div class="stat"><b id="db-s2">27</b><span>Donors</span></div>
+            <div class="stat"><b id="db-s3">€55</b><span>Avg. gift</span></div>
+            <div class="stat"><b id="db-s4">24</b><span>Days left</span></div>
           </div>
         </div>
 
         <div class="card pad" style="margin-top:24px">
           <h3 style="color:var(--navy);font-size:18px;margin-bottom:6px">Donations</h3>
           <p class="hint">You see every donor, their message, and the amount. Donors can choose to stay anonymous.</p>
-          <div style="margin-top:10px">
+          <div data-st="day1" hidden style="margin-top:14px">
+            <div class="empty">
+              <div class="em">📣</div>
+              <b>No donations yet — and that's normal</b>
+              <p>Donations appear here in real time. Three things that get the first one fastest:</p>
+              <p style="margin-top:10px;text-align:left"><b style="display:inline;color:var(--navy)">1.</b> Send your link personally to 5 close friends or family · <b style="display:inline;color:var(--navy)">2.</b> Post it in your story with a line about why Margarita matters to you · <b style="display:inline;color:var(--navy)">3.</b> Make the first donation yourself — pages with at least one gift convert much better.</p>
+            </div>
+          </div>
+          <div style="margin-top:10px" data-st="live">
             <div class="don">
               <div class="ava">ED</div>
               <div><div class="who">Elena Dushchenko</div><div class="when">22 Mar · via your page</div></div>
@@ -474,9 +499,13 @@
             <button class="btn btn-ghost btn-sm" style="justify-content:flex-start">⏸️ Pause fundraiser</button>
           </div>
         </div>
-        <div class="card pad" style="margin-top:20px;background:var(--soft);border-color:#f3d9d0">
+        <div class="card pad" data-st="live" style="margin-top:20px;background:var(--soft);border-color:#e9d0e4">
           <div style="font-size:22px">💌</div>
-          <p style="font-size:13.5px;color:#7a5a52;margin-top:8px;line-height:1.55"><b>Thanks to you, Margarita is €1,485 closer to her surgery.</b> Every euro raised through your page goes directly to her treatment.</p>
+          <p style="font-size:13.5px;color:#7a5272;margin-top:8px;line-height:1.55"><b>Thanks to you, Margarita is €1,485 closer to her surgery.</b> Every euro raised through your page goes directly to her treatment.</p>
+        </div>
+        <div class="card pad" data-st="day1" hidden style="margin-top:20px;background:var(--soft);border-color:#e9d0e4">
+          <div style="font-size:22px">💜</div>
+          <p style="font-size:13.5px;color:#7a5272;margin-top:8px;line-height:1.55"><b>You've already done the hardest part — you started.</b> Every euro raised through your page will go directly to Margarita's treatment.</p>
         </div>
       </div>
     </div>
@@ -491,11 +520,16 @@
     <div class="hdr-right"><span class="lang">RU · EN</span><button class="btn btn-primary btn-sm" onclick="go('s-donate')">Donate</button></div>
   </header>
   <div class="wrap">
+    <div class="stoggle"><span>Prototype view:</span>
+      <button class="stg-day1" onclick="setLaunch(true)">🌱 Day one (just launched)</button>
+      <button class="stg-live on" onclick="setLaunch(false)">📈 Week 3 (27 donations)</button>
+    </div>
     <div class="two">
       <div>
         <div class="card" style="overflow:hidden">
           <div class="cover" style="height:300px"><span class="ph">📷 Anna's marathon photo</span></div>
           <div class="pad">
+            <span class="pill active" data-st="day1" hidden style="margin-bottom:10px">✨ Just launched</span>
             <h1 style="color:var(--navy);font-size:30px;line-height:1.2">Anna runs the Limassol Marathon for Margarita</h1>
             <div style="display:flex;align-items:center;gap:10px;margin-top:12px">
               <div class="ava">AK</div>
@@ -506,21 +540,33 @@
           </div>
         </div>
         <div class="card pad" style="margin-top:24px">
-          <h3 style="color:var(--navy);font-size:18px;margin-bottom:12px">Recent donations · 27</h3>
-          <div class="don"><div class="ava anon">🙈</div><div><div class="who">Anonymous</div><div class="when">2 hours ago</div><div class="msg">Run, Anna, run! ❤️</div></div><div class="amt">€100</div></div>
-          <div class="don"><div class="ava">РГ</div><div><div class="who">Роман Гайшутис</div><div class="when">yesterday</div><div class="msg">Всех благ, мой КБ брат 💪</div></div><div class="amt">€30</div></div>
-          <div class="don"><div class="ava">ED</div><div><div class="who">Elena Dushchenko</div><div class="when">yesterday</div></div><div class="amt">€30</div></div>
-          <div class="don"><div class="ava">DZ</div><div><div class="who">Dmitrii Zakharov</div><div class="when">2 days ago</div><div class="msg">Good luck at the marathon!</div></div><div class="amt">€50</div></div>
-          <div style="text-align:center;margin-top:14px"><button class="btn btn-ghost btn-sm">Show all 27 donations</button></div>
+          <div data-st="live">
+            <h3 style="color:var(--navy);font-size:18px;margin-bottom:12px">Recent donations · 27</h3>
+            <div class="don"><div class="ava anon">🙈</div><div><div class="who">Anonymous</div><div class="when">2 hours ago</div><div class="msg">Run, Anna, run! ❤️</div></div><div class="amt">€100</div></div>
+            <div class="don"><div class="ava">РГ</div><div><div class="who">Роман Гайшутис</div><div class="when">yesterday</div><div class="msg">Всех благ, мой КБ брат 💪</div></div><div class="amt">€30</div></div>
+            <div class="don"><div class="ava">ED</div><div><div class="who">Elena Dushchenko</div><div class="when">yesterday</div></div><div class="amt">€30</div></div>
+            <div class="don"><div class="ava">DZ</div><div><div class="who">Dmitrii Zakharov</div><div class="when">2 days ago</div><div class="msg">Good luck at the marathon!</div></div><div class="amt">€50</div></div>
+            <div style="text-align:center;margin-top:14px"><button class="btn btn-ghost btn-sm">Show all 27 donations</button></div>
+          </div>
+          <div data-st="day1" hidden>
+            <h3 style="color:var(--navy);font-size:18px;margin-bottom:12px">Donations</h3>
+            <div class="empty">
+              <div class="em">🌱</div>
+              <b>Be the first to support Anna</b>
+              <p>No donations yet — this campaign has just started. Your gift sets the pace for everyone who follows, and your message will be the first thing Anna sees.</p>
+              <button class="btn btn-primary" style="margin-top:16px" onclick="go('s-donate')">Donate first ❤️</button>
+            </div>
+          </div>
         </div>
       </div>
 
       <div style="position:sticky;top:80px">
         <div class="card pad">
-          <div class="bar"><i style="width:74%"></i></div>
-          <div style="margin-top:14px"><b style="font-size:30px;color:var(--navy)">€1,485</b>
-            <div class="hint" style="font-size:14px">raised of €2,000 goal · <b>27 donors</b></div>
+          <div class="bar"><i id="pub-bar" style="width:74%"></i></div>
+          <div style="margin-top:14px"><b style="font-size:30px;color:var(--navy)" id="pub-raised">€1,485</b>
+            <div class="hint" style="font-size:14px" id="pub-sub">raised of €2,000 goal · <b>27 donors</b></div>
           </div>
+          <div data-st="day1" hidden style="background:var(--soft);border-radius:10px;padding:10px 12px;margin-top:12px;font-size:13px;color:#7a5272"><b>🚀 Just launched.</b> Every campaign starts at zero — be the one who gets it moving.</div>
           <button class="btn btn-primary btn-block" style="margin-top:18px" onclick="go('s-donate')">Donate ❤️</button>
           <button class="btn btn-ghost btn-block" style="margin-top:10px" onclick="this.textContent='Link copied ✓'">🔗 Share this page</button>
           <div class="hint" style="text-align:center;margin-top:14px">Payments are processed securely by Stripe.<br>100% goes to Margarita's treatment.</div>
@@ -790,6 +836,23 @@ function nextEmoji(el){
   const i=(emojis.indexOf(el.textContent)+1)%emojis.length;
   el.textContent=emojis[i];
   document.getElementById('th-emoji').textContent=emojis[i];
+}
+function setLaunch(on){
+  document.querySelectorAll('[data-st]').forEach(e=>{e.hidden = on ? e.dataset.st==='live' : e.dataset.st==='day1';});
+  document.querySelectorAll('.stg-day1').forEach(b=>b.classList.toggle('on',on));
+  document.querySelectorAll('.stg-live').forEach(b=>b.classList.toggle('on',!on));
+  const v=on?{pb:'0%',pr:'€0',ps:'raised of €2,000 goal · <b>0 donors</b>',dr:'€0 raised',dp:'0% of €2,000 goal',s1:'€0',s2:'0',s3:'—',s4:'45'}
+            :{pb:'74%',pr:'€1,485',ps:'raised of €2,000 goal · <b>27 donors</b>',dr:'€1,485 raised',dp:'74% of €2,000 goal',s1:'€1,485',s2:'27',s3:'€55',s4:'24'};
+  document.getElementById('pub-bar').style.width=v.pb;
+  document.getElementById('pub-raised').textContent=v.pr;
+  document.getElementById('pub-sub').innerHTML=v.ps;
+  document.getElementById('db-bar').style.width=v.pb;
+  document.getElementById('db-raised').textContent=v.dr;
+  document.getElementById('db-pct').textContent=v.dp;
+  document.getElementById('db-s1').textContent=v.s1;
+  document.getElementById('db-s2').textContent=v.s2;
+  document.getElementById('db-s3').textContent=v.s3;
+  document.getElementById('db-s4').textContent=v.s4;
 }
 function approveRow(a){
   const tr=a.closest('tr');
